@@ -1,14 +1,30 @@
+import { useEffect } from "react";
+
 interface Props {
     children: React.ReactNode;
     isOpen: boolean;
 }
 
-export default function Content({ children, isOpen }: Props) {
+export default function Modal({ children, isOpen }: Props) {
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+
+        // Cleanup function to reset overflow when the component unmounts
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [isOpen]);
+
     return (
         <div
+            id="modal"
             className={
                 isOpen
-                    ? "absolute left-0 top-0 z-20 flex h-screen w-screen items-center justify-center overflow-hidden bg-black/90"
+                    ? "fixed inset-0 z-20 flex h-screen w-screen items-center justify-center overflow-hidden bg-black/90"
                     : "hidden"
             }
         >
