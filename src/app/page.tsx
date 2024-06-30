@@ -11,6 +11,7 @@ import NewTodoModal from "@/features/routes/todo/NewTodoModal";
 import Todos from "@/features/routes/todo/Todos";
 import { useSetModal } from "@/hooks/useModals";
 import useResetTodosAtom from "@/hooks/useTodo";
+import TodoDetailModal from "@/features/routes/todo/TodoDetailModal";
 
 export default function Home() {
     const setModal = useSetModal();
@@ -38,6 +39,8 @@ export default function Home() {
             </Page>
 
             <NewTodoModal />
+
+            <TodoDetailModal />
 
             {/**This is experimental modal */}
             <Modal isOpen={isModalOpen}>
