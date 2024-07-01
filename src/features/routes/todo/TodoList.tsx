@@ -20,9 +20,9 @@ export default function TodoList() {
     };
 
     return (
-        <div className="relative grid size-full grid-flow-row grid-cols-4 overflow-scroll overflow-x-hidden">
+        <div className="relative grid size-full grid-flow-row grid-cols-4 content-start overflow-scroll overflow-x-hidden pt-3">
             {todos?.map((todo) => (
-                <div className="grid h-96" key={todo.id} onClick={() => openDetailModal(todo)}>
+                <div className="grid h-48" key={todo.id} onClick={() => openDetailModal(todo)}>
                     <Card>
                         <CardTitle>{todo?.title}</CardTitle>
                         <CardContent>{todo?.content}</CardContent>
