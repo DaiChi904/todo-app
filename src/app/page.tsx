@@ -38,7 +38,7 @@ export default function Home() {
                     <Header>Header</Header>
                 </div>
                 <Content>
-                    <div style={{ height: `calc(100vh - ${headerHeight}px - ${footerHeight}px)` }}>
+                    <div className="mt-2" style={{ height: `calc(100vh - ${headerHeight}px - ${footerHeight}px)` }}>
                         <TodoList />
                     </div>
                 </Content>
