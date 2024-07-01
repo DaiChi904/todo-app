@@ -24,7 +24,7 @@ export default function Modal({ children, isOpen }: Props) {
             id="modal"
             className={
                 isOpen
-                    ? "fixed inset-0 z-20 flex h-screen w-screen items-center justify-center overflow-hidden bg-black/90"
+                    ? "fixed inset-0 z-30 flex h-screen w-screen items-center justify-center overflow-hidden bg-black/90"
                     : "hidden"
             }
         >
