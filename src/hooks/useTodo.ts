@@ -66,6 +66,31 @@ export function useSetID() {
 }
 
 /**
+ * Delete selected todo.
+ * @param id id which you want to delete.
+ */
+export function useDeleteTodo() {
+    const [todos, setTodos] = useAtom(todosAtom);
+    return (id: SelectingID) => {
+        const pendingTodos = todos.filter((todo) => todo.id !== id);
+        setTodos(pendingTodos);
+    };
+}
+
+/**
+ * Edit selected todo.
+ * @param id
+ * @param todo
+ */
+export function useEditTodo() {
+    const [todos, setTodos] = useAtom(todosAtom);
+    return (id: SelectingID, todo: Todo) => {
+        const pendingTodos = todos.filter((todo) => todo.id !== id);
+        setTodos([...pendingTodos, todo]);
+    };
+}
+
+/**
  * Initialize todosAtom.
  */
 export default function useResetTodosAtom() {

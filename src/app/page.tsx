@@ -7,11 +7,12 @@ import Content from "@/components/layouts/Content";
 import Footer from "@/components/layouts/Footer";
 import Header from "@/components/layouts/Header";
 import Page from "@/components/layouts/Page";
+import EditTodoModal from "@/features/routes/todo/EditTodoModal";
 import NewTodoModal from "@/features/routes/todo/NewTodoModal";
+import TodoDetailModal from "@/features/routes/todo/TodoDetailModal";
 import Todos from "@/features/routes/todo/Todos";
 import { useSetModal } from "@/hooks/useModals";
 import useResetTodosAtom from "@/hooks/useTodo";
-import TodoDetailModal from "@/features/routes/todo/TodoDetailModal";
 
 export default function Home() {
     const setModal = useSetModal();
@@ -41,6 +42,8 @@ export default function Home() {
             <NewTodoModal />
 
             <TodoDetailModal />
+
+            <EditTodoModal />
 
             {/**This is experimental modal */}
             <Modal isOpen={isModalOpen}>
