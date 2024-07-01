@@ -11,7 +11,6 @@ export default function Todos() {
 
     useEffect(() => {
         setTodos(allTodos);
-        console.log(allTodos);
     }, [allTodos]);
 
     const openDetailModal = (todo: Todo) => {
