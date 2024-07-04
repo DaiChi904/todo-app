@@ -23,9 +23,10 @@ export default function Menu({
         <div
             className={
                 menu
-                    ? "fixed inset-0 z-30 flex h-screen w-screen items-center justify-center overflow-hidden bg-black opacity-90 transition-opacity duration-700 ease-in-out"
-                    : "fixed -left-0 bg-black opacity-0 transition-opacity duration-700 ease-in-out"
+                    ? "fixed inset-0 z-30 flex h-screen w-screen items-center justify-center overflow-hidden bg-black transition-opacity duration-700 ease-in-out"
+                    : "fixed -left-0 bg-black transition-opacity duration-700 ease-in-out"
             }
+            style={{ backgroundColor: menu ? "rgba(0, 0, 0, 0.9)" : "rgba(0, 0, 0, 0)" }}
         >
             <div
                 className={
