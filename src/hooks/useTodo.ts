@@ -1,4 +1,4 @@
-import { atom, useAtom, useAtomValue } from "jotai";
+import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { atomWithStorage, RESET } from "jotai/vanilla/utils";
 
 export type Todo = {
@@ -17,9 +17,11 @@ const selectingIDAtom = atom<SelectingID>(null);
 /**
  * Get all todos.
  */
-export function useTodos(): Todo[] {
+export function useTodos(): () => Todo[] {
     const todos = useAtomValue<Todo[]>(todosAtom);
-    return todos;
+    return () => {
+        return todos;
+    };
 }
 
 /**
@@ -59,7 +61,7 @@ export function useGetID() {
  * @param id
  */
 export function useSetID() {
-    const [, setID] = useAtom(selectingIDAtom);
+    const setID = useSetAtom(selectingIDAtom);
     return (id: SelectingID) => {
         setID(id);
     };
@@ -94,7 +96,7 @@ export function useEditTodo() {
  * Initialize todosAtom.
  */
 export default function useResetTodosAtom() {
-    const [, setTodos] = useAtom(todosAtom);
+    const setTodos = useSetAtom(todosAtom);
     return () => {
         setTodos(RESET);
     };
