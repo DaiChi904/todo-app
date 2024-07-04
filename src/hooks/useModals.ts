@@ -1,4 +1,4 @@
-import { atom, useAtom, useAtomValue } from "jotai";
+import { atom, useAtomValue, useSetAtom } from "jotai";
 
 type Modals = null | "newTodo" | "detailTodo" | "editTodo";
 
@@ -17,6 +17,6 @@ export function useGetModal(): Modals {
  * @param newModal Modal which you want to use.
  */
 export function useSetModal() {
-    const [, setModal] = useAtom(modalAtom);
+    const setModal = useSetAtom(modalAtom);
     return setModal;
 }
