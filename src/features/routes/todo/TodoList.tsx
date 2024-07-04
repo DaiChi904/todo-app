@@ -7,12 +7,12 @@ import { Todo, useSetID, useTodos } from "@/hooks/useTodo";
 export default function TodoList() {
     const setModal = useSetModal();
     const [todos, setTodos] = useState<Todo[]>([]);
-    const getAllTodos = useTodos();
+    const allTodos = useTodos();
     const setID = useSetID();
 
     useEffect(() => {
-        setTodos(getAllTodos());
-    }, [getAllTodos()]);
+        setTodos(allTodos);
+    }, [allTodos]);
 
     const openDetailModal = (todo: Todo) => {
         setID(todo.id);

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 interface Props {
     children: React.ReactNode;
@@ -6,14 +6,17 @@ interface Props {
 }
 
 export default function Modal({ children, isOpen }: Props) {
-    const bodyRef = useRef(document.body.style.overflow);
     useEffect(() => {
         if (isOpen) {
-            bodyRef.current = document.body.style.overflow;
             document.body.style.overflow = "hidden";
         } else {
-            document.body.style.overflow = "visible";
+            document.body.style.overflow = "";
         }
+
+        // Cleanup function to reset overflow when the component unmounts
+        return () => {
+            document.body.style.overflow = "";
+        };
     }, [isOpen]);
 
     return (
