@@ -18,7 +18,6 @@ export default function Modal({ children, isOpen }: Props) {
 
     return (
         <div
-            id="modal"
             className={
                 isOpen
                     ? "fixed inset-0 z-30 flex h-screen w-screen items-center justify-center overflow-hidden bg-black/90"
