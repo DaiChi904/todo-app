@@ -2,25 +2,20 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { Card, CardContent, CardTitle } from "@/components/elements/Card";
-import Modal from "@/components/elements/Modal";
 import Content from "@/components/layouts/Content";
 import Footer from "@/components/layouts/Footer";
 import Header from "@/components/layouts/Header";
 import Page from "@/components/layouts/Page";
-import Menu from "@/features/common/Menu";
+import MainMenu from "@/features/common/menu";
 import EditTodoModal from "@/features/routes/todo/EditTodoModal";
 import NewTodoModal from "@/features/routes/todo/NewTodoModal";
 import TodoDetailModal from "@/features/routes/todo/TodoDetailModal";
 import TodoList from "@/features/routes/todo/TodoList";
 import { useControlMenu } from "@/hooks/useMenu";
 import { useSetModal } from "@/hooks/useModals";
-import useResetTodosAtom from "@/hooks/useTodo";
 
 export default function Home() {
     const setModal = useSetModal();
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const reset = useResetTodosAtom();
 
     const controlMenu = useControlMenu();
 
@@ -67,12 +62,6 @@ export default function Home() {
                     <Footer>
                         <button
                             className="m-1 w-32 rounded-2xl bg-sky-600 px-2 py-1 shadow-xl"
-                            onClick={() => setIsModalOpen(true)}
-                        >
-                            <text className="text-xl text-white">Open</text>
-                        </button>
-                        <button
-                            className="m-1 w-32 rounded-2xl bg-sky-600 px-2 py-1 shadow-xl"
                             onClick={() => setModal("newTodo")}
                         >
                             <text className="text-xl text-white">Create</text>
@@ -87,41 +76,7 @@ export default function Home() {
 
             <EditTodoModal />
 
-            <Menu>
-                <button className="m-1 w-32 rounded-2xl bg-sky-600 px-2 py-1 shadow-xl" onClick={() => reset()}>
-                    <text className="text-xl text-white">Reset</text>
-                </button>
-                <button className="m-1 w-32 rounded-2xl bg-sky-600 px-2 py-1 shadow-xl" onClick={() => controlMenu(false)}>
-                    <text className="text-xl text-white">Close</text>
-                </button>
-            </Menu>
-
-            {/**This is experimental modal */}
-            <Modal isOpen={isModalOpen}>
-                <Page>
-                    <Header>
-                        <text>test</text>
-                    </Header>
-                    <Content>
-                        <Card>
-                            <CardTitle>Title</CardTitle>
-                            <CardContent>Content</CardContent>
-                        </Card>
-                        <Card>
-                            <CardTitle>Title</CardTitle>
-                            <CardContent>Content</CardContent>
-                        </Card>
-                    </Content>
-                    <Footer>
-                        <button
-                            className="m-1 w-32 rounded-2xl bg-sky-600 px-2 py-1 shadow-xl"
-                            onClick={() => setIsModalOpen(false)}
-                        >
-                            <text className="text-xl text-white">Close</text>
-                        </button>
-                    </Footer>
-                </Page>
-            </Modal>
+            <MainMenu />
         </>
     );
 }
