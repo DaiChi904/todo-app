@@ -7,13 +7,13 @@ import Footer from "@/components/layouts/Footer";
 import Header from "@/components/layouts/Header";
 import Page from "@/components/layouts/Page";
 import MainMenu from "@/features/common/menu";
+import SettingModal from "@/features/common/SettingModal";
 import EditTodoModal from "@/features/routes/todo/EditTodoModal";
 import NewTodoModal from "@/features/routes/todo/NewTodoModal";
 import TodoDetailModal from "@/features/routes/todo/TodoDetailModal";
 import TodoList from "@/features/routes/todo/TodoList";
 import { useControlMenu } from "@/hooks/useMenu";
 import { useSetModal } from "@/hooks/useModals";
-import SettingModal from "@/features/common/SettingModal";
 
 export default function Home() {
     const setModal = useSetModal();
