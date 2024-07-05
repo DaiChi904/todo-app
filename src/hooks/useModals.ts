@@ -1,6 +1,6 @@
 import { atom, useAtomValue, useSetAtom } from "jotai";
 
-type Modals = null | "newTodo" | "detailTodo" | "editTodo";
+type Modals = null | "newTodo" | "detailTodo" | "editTodo" | "setting";
 
 const modalAtom = atom<Modals>(null);
 

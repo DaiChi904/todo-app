@@ -13,6 +13,7 @@ import TodoDetailModal from "@/features/routes/todo/TodoDetailModal";
 import TodoList from "@/features/routes/todo/TodoList";
 import { useControlMenu } from "@/hooks/useMenu";
 import { useSetModal } from "@/hooks/useModals";
+import SettingModal from "@/features/common/SettingModal";
 
 export default function Home() {
     const setModal = useSetModal();
@@ -75,6 +76,8 @@ export default function Home() {
             <TodoDetailModal />
 
             <EditTodoModal />
+
+            <SettingModal />
 
             <MainMenu />
         </>
