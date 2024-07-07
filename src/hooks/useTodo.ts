@@ -1,11 +1,28 @@
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { atomWithStorage, RESET } from "jotai/vanilla/utils";
 
+export type CheckList =
+    | {
+          content: string;
+          isChecked: boolean;
+      }[]
+    | null;
+
 export type Todo = {
     id: string;
     title: string;
     content: string;
+    checkList: CheckList;
+
+    // The types related to date need to be reconsidered.
+    begin?: Date;
+    end?: Date;
+    createdAt: Date;
+    lastEditAt: Date | null;
+
     isChecked: boolean;
+    isPinned: boolean;
+    isArchived: boolean;
 };
 
 const todosAtom = atomWithStorage<Todo[]>("DaiChi904::todoAtom", [], undefined, { getOnInit: true });
