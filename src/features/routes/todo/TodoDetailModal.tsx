@@ -4,7 +4,20 @@ import Footer from "@/components/layouts/Footer";
 import Header from "@/components/layouts/Header";
 import Page from "@/components/layouts/Page";
 import { useGetModal, useSetModal } from "@/hooks/useModals";
-import { useDeleteTodo, useGetID, useSetID, useTodo } from "@/hooks/useTodo";
+import { Todo, useDeleteTodo, useEditTodo, useGetID, useSetID, useTodo } from "@/hooks/useTodo";
+
+import {
+    ArchiveBoxArrowDown,
+    ArrowUpTray,
+    CalendarDays,
+    CheckBadge,
+    CheckBadgeSolid,
+    ChevronLeft,
+    MapPin,
+    MapPinSolid,
+    PencilSquare,
+    Trash,
+} from "../../../../public/HeroiconsSVG";
 
 export default function TodoDetailModal() {
     const modal = useGetModal();
@@ -12,6 +25,7 @@ export default function TodoDetailModal() {
     const getTodo = useTodo();
     const getID = useGetID();
     const setID = useSetID();
+    const updateTodo = useEditTodo();
     const deleteTodo = useDeleteTodo();
 
     const todo = getTodo(getID());
@@ -26,23 +40,65 @@ export default function TodoDetailModal() {
         setModal(null);
     };
 
+    const handleArchive = () => {
+        if (!todo) return;
+        const archivedTodo: Todo = { ...todo, isArchived: !todo.isArchived };
+        updateTodo(getID(), archivedTodo);
+        alert(todo.isArchived ? "Archived" : "Backuped");
+    };
+
+    const handlePin = () => {
+        if (!todo) return;
+        const pinnedTodo: Todo = { ...todo, isPinned: !todo.isPinned };
+        updateTodo(getID(), pinnedTodo);
+    };
+
+    const handleCheck = () => {
+        if (!todo) return;
+        const checkedTodo: Todo = { ...todo, isChecked: !todo.isChecked };
+        updateTodo(getID(), checkedTodo);
+    };
+
     // Return if it fail to get todo.
     if (!todo) {
         return (
             <Modal isOpen={modal === "detailTodo"}>
                 <Page>
                     <Header>
-                        <div className="m-2">
-                            <text className="text-3xl">Todo Detail</text>
+                        <div className="flex items-center">
+                            <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl" onClick={() => handleClose()}>
+                                <ChevronLeft />
+                            </button>
+                            <div className="m-2">
+                                <text className="text-3xl">Todo Detail</text>
+                            </div>
+                            <div className="ml-auto">
+                                <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl">
+                                    <CalendarDays />
+                                </button>
+                                <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl">
+                                    <MapPin />
+                                </button>
+                            </div>
                         </div>
                     </Header>
                     <Content>
-                        <text className="text-center text-4xl">Failed to get todo.</text>
+                        <text className="mt-auto text-center text-4xl">Failed to get todo.</text>
                     </Content>
                     <Footer>
-                        <button className="m-1 w-32 rounded-2xl bg-sky-600 px-2 py-1 shadow-2xl" onClick={() => setModal(null)}>
-                            <text className="text-xl text-white">Close</text>
-                        </button>
+                        <div className="flex flex-row">
+                            <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl">
+                                <CheckBadge />
+                            </button>
+                            <div className="ml-auto flex">
+                                <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl">
+                                    <PencilSquare />
+                                </button>
+                                <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl">
+                                    <Trash />
+                                </button>
+                            </div>
+                        </div>
                     </Footer>
                 </Page>
             </Modal>
@@ -53,8 +109,24 @@ export default function TodoDetailModal() {
         <Modal isOpen={modal === "detailTodo"}>
             <Page>
                 <Header>
-                    <div className="m-2">
-                        <text className="text-3xl">Todo Detail</text>
+                    <div className="flex items-center">
+                        <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl" onClick={() => setModal(null)}>
+                            <ChevronLeft />
+                        </button>
+                        <div className="m-2">
+                            <text className="text-3xl">Todo Detail</text>
+                        </div>
+                        <div className="ml-auto">
+                            <button
+                                className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl"
+                                onClick={() => handleArchive()}
+                            >
+                                {todo.isArchived ? <ArrowUpTray /> : <ArchiveBoxArrowDown />}
+                            </button>
+                            <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl" onClick={() => handlePin()}>
+                                {todo.isPinned ? <MapPinSolid /> : <MapPin />}
+                            </button>
+                        </div>
                     </div>
                 </Header>
                 <Content>
@@ -63,18 +135,23 @@ export default function TodoDetailModal() {
                 </Content>
                 <Footer>
                     <div className="flex flex-row">
-                        <button className="m-1 w-32 rounded-2xl bg-sky-600 px-2 py-1 shadow-2xl" onClick={() => handleClose()}>
-                            <text className="text-xl text-white">Close</text>
+                        <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl" onClick={() => handleCheck()}>
+                            {todo.isChecked ? <CheckBadgeSolid /> : <CheckBadge />}
                         </button>
-                        <button
-                            className="m-1 w-32 rounded-2xl bg-sky-600 px-2 py-1 shadow-2xl"
-                            onClick={() => setModal("editTodo")}
-                        >
-                            <text className="text-xl text-white">Edit</text>
-                        </button>
-                        <button className="m-1 w-32 rounded-2xl bg-sky-600 px-2 py-1 shadow-2xl" onClick={() => handleDelete()}>
-                            <text className="text-xl text-white">Delete</text>
-                        </button>
+                        <div className="ml-auto flex">
+                            <button
+                                className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl"
+                                onClick={() => setModal("editTodo")}
+                            >
+                                <PencilSquare />
+                            </button>
+                            <button
+                                className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl"
+                                onClick={() => handleDelete()}
+                            >
+                                <Trash />
+                            </button>
+                        </div>
                     </div>
                 </Footer>
             </Page>
