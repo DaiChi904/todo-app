@@ -10,7 +10,6 @@ import getDateString from "@/utils/getDateString";
 import {
     ArchiveBoxArrowDown,
     ArrowUpTray,
-    CalendarDays,
     CheckBadge,
     CheckBadgeSolid,
     ChevronLeft,
@@ -45,7 +44,7 @@ export default function TodoDetailModal() {
         if (!todo) return;
         const archivedTodo: Todo = { ...todo, isArchived: !todo.isArchived };
         updateTodo(getID(), archivedTodo);
-        alert(todo.isArchived ? "Archived" : "Backuped");
+        alert(todo.isArchived ? "Backuped" : "Archived");
     };
 
     const handlePin = () => {
@@ -75,7 +74,7 @@ export default function TodoDetailModal() {
                             </div>
                             <div className="ml-auto">
                                 <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl">
-                                    <CalendarDays />
+                                    <ArchiveBoxArrowDown />
                                 </button>
                                 <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl">
                                     <MapPin />
