@@ -5,6 +5,7 @@ import Header from "@/components/layouts/Header";
 import Page from "@/components/layouts/Page";
 import { useGetModal, useSetModal } from "@/hooks/useModals";
 import { Todo, useDeleteTodo, useEditTodo, useGetID, useSetID, useTodo } from "@/hooks/useTodo";
+import getDateString from "@/utils/getDateString";
 
 import {
     ArchiveBoxArrowDown,
@@ -134,11 +135,20 @@ export default function TodoDetailModal() {
                     <text>{todo?.content}</text>
                 </Content>
                 <Footer>
-                    <div className="flex flex-row">
-                        <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl" onClick={() => handleCheck()}>
-                            {todo.isChecked ? <CheckBadgeSolid /> : <CheckBadge />}
-                        </button>
-                        <div className="ml-auto flex">
+                    <div className="flex flex-row justify-between">
+                        <div id="left" className="flex">
+                            <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl" onClick={() => handleCheck()}>
+                                {todo.isChecked ? <CheckBadgeSolid /> : <CheckBadge />}
+                            </button>
+                        </div>
+                        <div id="middle" className="flex items-center">
+                            <text>
+                                {todo.createdAt
+                                    ? `Created at ${getDateString(todo.createdAt)}`
+                                    : `Edited at ${getDateString(todo.lastEditAt)}`}
+                            </text>
+                        </div>
+                        <div id="right" className="flex">
                             <button
                                 className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl"
                                 onClick={() => setModal("editTodo")}
