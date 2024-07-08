@@ -7,6 +7,7 @@ import Header from "@/components/layouts/Header";
 import Page from "@/components/layouts/Page";
 import { useControlMenu } from "@/hooks/useMenu";
 import { useSetModal } from "@/hooks/useModals";
+import { useArchived } from "@/hooks/useTodo";
 
 import { ArchiveBox, Cog8Tooth, Home, User } from "../../../../public/HeroiconsSVGs";
 import Menu from "./Menu";
@@ -14,6 +15,7 @@ import Menu from "./Menu";
 export default function MainMenu() {
     const setModal = useSetModal();
     const controlMenu = useControlMenu();
+    const setArchived = useArchived();
 
     const openSetting = () => {
         controlMenu(false);
@@ -37,20 +39,16 @@ export default function MainMenu() {
                 <Content>
                     <Lists>
                         <List>
-                            <Link href={"/"}>
-                                <div className="flex items-center">
-                                    <Home />
-                                    <text className="ml-2">Home</text>
-                                </div>
-                            </Link>
+                            <div className="flex cursor-pointer items-center" onClick={() => setArchived(false)}>
+                                <Home />
+                                <text className="ml-2">Home</text>
+                            </div>
                         </List>
                         <List>
-                            <Link href={"/archive"}>
-                                <div className="flex items-center">
-                                    <ArchiveBox />
-                                    <text className="ml-2">Archive</text>
-                                </div>
-                            </Link>
+                            <div className="flex cursor-pointer items-center" onClick={() => setArchived(true)}>
+                                <ArchiveBox />
+                                <text className="ml-2">Archive</text>
+                            </div>
                         </List>
                     </Lists>
                     <Lists>

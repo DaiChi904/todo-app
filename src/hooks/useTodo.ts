@@ -109,6 +109,26 @@ export function useEditTodo() {
     };
 }
 
+const archivedAtom = atom<boolean>(false);
+
+/**
+ *Get mode for changing todo list and archived todo list.
+ */
+export function useGetIsArchived(): () => boolean {
+    const isArchived = useAtomValue<boolean>(archivedAtom);
+    return (): boolean => {
+        return isArchived;
+    };
+}
+
+/**
+ *Set mode for changing todo list and archived todo list.
+ */
+export function useArchived() {
+    const setIsArchived = useSetAtom(archivedAtom);
+    return (isArchived: boolean) => setIsArchived(isArchived);
+}
+
 /**
  * Initialize todosAtom.
  */
