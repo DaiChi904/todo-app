@@ -15,7 +15,7 @@ import TodoList from "@/features/routes/todo/TodoList";
 import { useControlMenu } from "@/hooks/useMenu";
 import { useSetModal } from "@/hooks/useModals";
 
-import { ListBullet } from "../../public/HeroiconsSVG";
+import { ListBullet } from "../../public/HeroiconsSVGs";
 
 export default function Home() {
     const setModal = useSetModal();

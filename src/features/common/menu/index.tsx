@@ -8,7 +8,7 @@ import Page from "@/components/layouts/Page";
 import { useControlMenu } from "@/hooks/useMenu";
 import { useSetModal } from "@/hooks/useModals";
 
-import { ArchiveBox, Cog8Tooth, Home, User } from "../../../../public/HeroiconsSVG";
+import { ArchiveBox, Cog8Tooth, Home, User } from "../../../../public/HeroiconsSVGs";
 import Menu from "./Menu";
 
 export default function MainMenu() {

@@ -17,7 +17,7 @@ import {
     MapPinSolid,
     PencilSquare,
     Trash,
-} from "../../../../public/HeroiconsSVG";
+} from "../../../../public/HeroiconsSVGs";
 
 export default function TodoDetailModal() {
     const modal = useGetModal();

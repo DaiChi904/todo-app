@@ -8,7 +8,7 @@ import Page from "@/components/layouts/Page";
 import { useGetModal, useSetModal } from "@/hooks/useModals";
 import { Todo, useEditTodo, useGetID, useTodo } from "@/hooks/useTodo";
 
-import { CalendarDays, Check, ChevronLeft, ListBullet, MapPin, MapPinSolid } from "../../../../public/HeroiconsSVG";
+import { CalendarDays, Check, ChevronLeft, ListBullet, MapPin, MapPinSolid } from "../../../../public/HeroiconsSVGs";
 
 export default function EditTodoModal() {
     const modal = useGetModal();
