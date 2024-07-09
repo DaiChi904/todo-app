@@ -81,7 +81,7 @@ export default function EditTodoModal() {
             id: todo.id,
             title: title,
             content: content,
-            checkList: null,
+            checkList: [],
             createdAt: todo.createdAt,
             lastEditAt: editedDate,
             isChecked: todo.isChecked,

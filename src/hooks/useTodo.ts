@@ -1,18 +1,17 @@
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { atomWithStorage, RESET } from "jotai/vanilla/utils";
 
-export type CheckList =
-    | {
-          content: string;
-          isChecked: boolean;
-      }[]
-    | null;
+export type CheckList = {
+    index: number;
+    content: string;
+    isChecked: boolean;
+};
 
 export type Todo = {
     id: string;
     title: string;
     content: string;
-    checkList: CheckList;
+    checkList: CheckList[];
 
     // The types related to date need to be reconsidered.
     begin?: Date;

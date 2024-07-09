@@ -33,7 +33,7 @@ export default function NewTodoModal() {
             id: id,
             title: title,
             content: content,
-            checkList: null,
+            checkList: [],
             createdAt: createdDate,
             lastEditAt: null,
             isChecked: false,
