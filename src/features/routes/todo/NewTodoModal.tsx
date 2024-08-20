@@ -9,7 +9,7 @@ import { useGetModal, useSetModal } from "@/hooks/useModals";
 import { CheckList, Todo, useSetNewTodo } from "@/hooks/useTodo";
 
 import { CalendarDays, Check, ChevronLeft, ListBullet, MapPin, MapPinSolid } from "../../../../public/HeroiconsSVGs";
-import List from "./list";
+import CheckBox from "./checkBox";
 
 export default function NewTodoModal() {
     const modal = useGetModal();
@@ -25,7 +25,8 @@ export default function NewTodoModal() {
         setContent(e.target.value);
     };
 
-    const [list, setList] = useState<CheckList[]>([]);
+    const [useCheckBox, setUseCheckBox] = useState<boolean>(false);
+    const [checkList, setCheckList] = useState<CheckList[]>([]);
 
     const [isPinned, setIsPinned] = useState<boolean>(false);
 
@@ -36,7 +37,7 @@ export default function NewTodoModal() {
             id: id,
             title: title,
             content: content,
-            checkList: [],
+            checkList: checkList,
             createdAt: createdDate,
             lastEditAt: null,
             isChecked: false,
@@ -100,12 +101,17 @@ export default function NewTodoModal() {
                             />
                             <text className="text-right text-xs">Within 40 letters</text>
                         </div>
-                        <List list={list} setList={setList} />
+                        <div className="flex w-full flex-col">
+                            {useCheckBox && <CheckBox checkList={checkList} setCheckList={setCheckList} />}
+                        </div>
                     </main>
                 </Content>
                 <Footer>
                     <div className="flex w-full flex-row">
-                        <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl">
+                        <button
+                            className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl"
+                            onClick={() => setUseCheckBox(!useCheckBox)}
+                        >
                             <ListBullet />
                         </button>
                         <button

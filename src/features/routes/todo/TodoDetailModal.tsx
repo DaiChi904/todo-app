@@ -132,6 +132,10 @@ export default function TodoDetailModal() {
                 <Content>
                     <text>{todo?.title}</text>
                     <text>{todo?.content}</text>
+
+                    <div className="border-t">
+                        {todo.checkList?.map((element) => <div key={element.id}>{element.content}</div>)}
+                    </div>
                 </Content>
                 <Footer>
                     <div className="flex flex-row justify-between">

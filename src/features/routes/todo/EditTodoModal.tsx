@@ -6,9 +6,10 @@ import Footer from "@/components/layouts/Footer";
 import Header from "@/components/layouts/Header";
 import Page from "@/components/layouts/Page";
 import { useGetModal, useSetModal } from "@/hooks/useModals";
-import { Todo, useEditTodo, useGetID, useTodo } from "@/hooks/useTodo";
+import { CheckList, Todo, useEditTodo, useGetID, useTodo } from "@/hooks/useTodo";
 
 import { CalendarDays, Check, ChevronLeft, ListBullet, MapPin, MapPinSolid } from "../../../../public/HeroiconsSVGs";
+import CheckBox from "./checkBox";
 
 export default function EditTodoModal() {
     const modal = useGetModal();
@@ -21,9 +22,14 @@ export default function EditTodoModal() {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
 
+    const [useCheckBox, setUseCheckBox] = useState<boolean>(false);
+    const [checkList, setCheckList] = useState<CheckList[]>([]);
+
     useEffect(() => {
         setTitle(todo ? todo.title : "");
         setContent(todo ? todo.content : "");
+        setUseCheckBox(todo && todo?.checkList.length > 0 ? true : false);
+        setCheckList(todo && todo?.checkList.length > 0 ? todo.checkList : []);
     }, [getID(), todo]);
 
     // Return if it fail to get todo.
@@ -81,7 +87,7 @@ export default function EditTodoModal() {
             id: todo.id,
             title: title,
             content: content,
-            checkList: [],
+            checkList: checkList,
             createdAt: todo.createdAt,
             lastEditAt: editedDate,
             isChecked: todo.isChecked,
@@ -148,11 +154,17 @@ export default function EditTodoModal() {
                             />
                             <text className="text-right text-xs">Within 40 letters</text>
                         </div>
+                        <div className="flex w-full flex-col">
+                            {useCheckBox && <CheckBox checkList={checkList} setCheckList={setCheckList} />}
+                        </div>
                     </main>
                 </Content>
                 <Footer>
                     <div className="flex w-full flex-row">
-                        <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl">
+                        <button
+                            className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl"
+                            onClick={() => setUseCheckBox(!useCheckBox)}
+                        >
                             <ListBullet />
                         </button>
                         <button
