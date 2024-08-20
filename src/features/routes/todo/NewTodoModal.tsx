@@ -6,9 +6,10 @@ import Footer from "@/components/layouts/Footer";
 import Header from "@/components/layouts/Header";
 import Page from "@/components/layouts/Page";
 import { useGetModal, useSetModal } from "@/hooks/useModals";
-import { Todo, useSetNewTodo } from "@/hooks/useTodo";
+import { CheckList, Todo, useSetNewTodo } from "@/hooks/useTodo";
 
 import { CalendarDays, Check, ChevronLeft, ListBullet, MapPin, MapPinSolid } from "../../../../public/HeroiconsSVGs";
+import List from "./list";
 
 export default function NewTodoModal() {
     const modal = useGetModal();
@@ -23,6 +24,8 @@ export default function NewTodoModal() {
     const handleContentInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setContent(e.target.value);
     };
+
+    const [list, setList] = useState<CheckList[]>([]);
 
     const [isPinned, setIsPinned] = useState<boolean>(false);
 
@@ -97,6 +100,7 @@ export default function NewTodoModal() {
                             />
                             <text className="text-right text-xs">Within 40 letters</text>
                         </div>
+                        <List list={list} setList={setList} />
                     </main>
                 </Content>
                 <Footer>

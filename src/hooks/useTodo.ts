@@ -2,7 +2,7 @@ import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { atomWithStorage, RESET } from "jotai/vanilla/utils";
 
 export type CheckList = {
-    index: number;
+    id: string;
     content: string;
     isChecked: boolean;
 };
