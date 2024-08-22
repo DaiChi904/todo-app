@@ -3,6 +3,8 @@ import { ChangeEvent, Dispatch, useState } from "react";
 
 import { CheckList } from "@/hooks/useTodo";
 
+import { Bars_3, CheckBadge, CheckBadgeSolid, Trash } from "../../../../../public/HeroiconsSVGs";
+
 interface Props {
     checkList: CheckList[];
     setCheckList: Dispatch<SetStateAction<CheckList[]>>;
@@ -22,15 +24,27 @@ export default function CheckBox({ checkList, setCheckList }: Props) {
         setIsConfirmed(true);
     };
 
+    const handleDelete = (target: CheckList) => {
+        const pendingCheckList = checkList.filter((element) => element.id !== target.id);
+        setCheckList(pendingCheckList);
+    };
+
     return (
         <>
             <text>Check List</text>
             <div className="flex w-full flex-col">
                 {checkList?.map((element) => (
-                    <div key={element.id} className="flex flex-row">
-                        <div>=</div>
-                        <div>{element.isChecked}</div>
-                        <text>{element.content}</text>
+                    <div key={element.id} className="my-1 flex flex-row items-center">
+                        <div className="m-1">
+                            <Bars_3 />
+                        </div>
+                        <div>{element.isChecked ? <CheckBadgeSolid /> : <CheckBadge />}</div>
+                        <div className="ml-1">
+                            <text className="break-all">{element.content}</text>
+                        </div>
+                        <div className="m-1" onClick={() => handleDelete(element)}>
+                            <Trash />
+                        </div>
                     </div>
                 ))}
                 {isConfirmed ? (

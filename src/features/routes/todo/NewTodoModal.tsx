@@ -101,7 +101,7 @@ export default function NewTodoModal() {
                             />
                             <text className="text-right text-xs">Within 40 letters</text>
                         </div>
-                        <div className="flex w-full flex-col">
+                        <div className="relative flex w-full flex-col">
                             {useCheckBox && <CheckBox checkList={checkList} setCheckList={setCheckList} />}
                         </div>
                     </main>
