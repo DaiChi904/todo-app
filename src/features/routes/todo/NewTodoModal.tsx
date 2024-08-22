@@ -6,7 +6,10 @@ import Footer from "@/components/layouts/Footer";
 import Header from "@/components/layouts/Header";
 import Page from "@/components/layouts/Page";
 import { useGetModal, useSetModal } from "@/hooks/useModals";
-import { Todo, useSetNewTodo } from "@/hooks/useTodo";
+import { CheckList, Todo, useSetNewTodo } from "@/hooks/useTodo";
+
+import { CalendarDays, Check, ChevronLeft, ListBullet, MapPin, MapPinSolid } from "../../../../public/HeroiconsSVGs";
+import CheckBox from "./checkBox";
 
 export default function NewTodoModal() {
     const modal = useGetModal();
@@ -22,13 +25,24 @@ export default function NewTodoModal() {
         setContent(e.target.value);
     };
 
+    const [useCheckBox, setUseCheckBox] = useState<boolean>(false);
+    const [checkList, setCheckList] = useState<CheckList[]>([]);
+
+    const [isPinned, setIsPinned] = useState<boolean>(false);
+
     const handleCreate = () => {
         const id = "id" + Math.random().toString(16).slice(2);
+        const createdDate = new Date();
         const newTodo: Todo = {
             id: id,
             title: title,
             content: content,
+            checkList: checkList,
+            createdAt: createdDate,
+            lastEditAt: null,
             isChecked: false,
+            isPinned: isPinned,
+            isArchived: false,
         };
         setTodo(newTodo);
         setModal(null);
@@ -40,12 +54,28 @@ export default function NewTodoModal() {
         <Modal isOpen={modal === "newTodo"}>
             <Page>
                 <Header>
-                    <div className="m-2">
-                        <text className="text-3xl">Create New Todo</text>
+                    <div className="flex items-center">
+                        <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl" onClick={() => setModal(null)}>
+                            <ChevronLeft />
+                        </button>
+                        <div className="m-2">
+                            <text className="text-3xl">Create New Todo</text>
+                        </div>
+                        <div className="ml-auto">
+                            <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl">
+                                <CalendarDays />
+                            </button>
+                            <button
+                                className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl"
+                                onClick={() => setIsPinned(!isPinned)}
+                            >
+                                {isPinned ? <MapPinSolid /> : <MapPin />}
+                            </button>
+                        </div>
                     </div>
                 </Header>
                 <Content>
-                    <main className="relative flex flex-col p-3">
+                    <main className="relative flex grow flex-col overflow-y-auto p-3">
                         <div className="flex flex-col">
                             <label htmlFor="title">
                                 <text className="text-sm text-sky-600/80">Title</text>
@@ -65,21 +95,30 @@ export default function NewTodoModal() {
                             </label>
                             <textarea
                                 name="content"
-                                className="h-64 max-h-full resize-y items-center rounded-2xl border-2 border-sky-600/60 p-2 text-justify text-xl shadow-2xl"
+                                className="h-64 resize-y items-center rounded-2xl border-2 border-sky-600/60 p-2 text-justify text-xl shadow-2xl"
                                 value={content}
                                 onChange={(e) => handleContentInput(e)}
                             />
                             <text className="text-right text-xs">Within 40 letters</text>
                         </div>
+                        <div className="relative flex w-full flex-col">
+                            {useCheckBox && <CheckBox checkList={checkList} setCheckList={setCheckList} />}
+                        </div>
                     </main>
                 </Content>
                 <Footer>
-                    <div className="flex flex-row">
-                        <button className="m-1 w-32 rounded-2xl bg-sky-600 px-2 py-1 shadow-2xl" onClick={() => setModal(null)}>
-                            <text className="text-xl text-white">Close</text>
+                    <div className="flex w-full flex-row">
+                        <button
+                            className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl"
+                            onClick={() => setUseCheckBox(!useCheckBox)}
+                        >
+                            <ListBullet />
                         </button>
-                        <button className="m-1 w-32 rounded-2xl bg-sky-600 px-2 py-1 shadow-2xl" onClick={() => handleCreate()}>
-                            <text className="text-xl text-white">Create</text>
+                        <button
+                            className="m-1 ml-auto size-fit rounded-full bg-sky-600 p-2 shadow-2xl"
+                            onClick={() => handleCreate()}
+                        >
+                            <Check />
                         </button>
                     </div>
                 </Footer>

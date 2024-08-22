@@ -1,11 +1,27 @@
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { atomWithStorage, RESET } from "jotai/vanilla/utils";
 
+export type CheckList = {
+    id: string;
+    content: string;
+    isChecked: boolean;
+};
+
 export type Todo = {
     id: string;
     title: string;
     content: string;
+    checkList: CheckList[];
+
+    // The types related to date need to be reconsidered.
+    begin?: Date;
+    end?: Date;
+    createdAt: Date;
+    lastEditAt: Date | null;
+
     isChecked: boolean;
+    isPinned: boolean;
+    isArchived: boolean;
 };
 
 const todosAtom = atomWithStorage<Todo[]>("DaiChi904::todoAtom", [], undefined, { getOnInit: true });
@@ -90,6 +106,26 @@ export function useEditTodo() {
         const pendingTodos = todos.filter((todo) => todo.id !== id);
         setTodos([...pendingTodos, todo]);
     };
+}
+
+const archivedAtom = atom<boolean>(false);
+
+/**
+ *Get mode for changing todo list and archived todo list.
+ */
+export function useGetIsArchived(): () => boolean {
+    const isArchived = useAtomValue<boolean>(archivedAtom);
+    return (): boolean => {
+        return isArchived;
+    };
+}
+
+/**
+ *Set mode for changing todo list and archived todo list.
+ */
+export function useArchived() {
+    const setIsArchived = useSetAtom(archivedAtom);
+    return (isArchived: boolean) => setIsArchived(isArchived);
 }
 
 /**

@@ -6,7 +6,10 @@ import Footer from "@/components/layouts/Footer";
 import Header from "@/components/layouts/Header";
 import Page from "@/components/layouts/Page";
 import { useGetModal, useSetModal } from "@/hooks/useModals";
-import { Todo, useEditTodo, useGetID, useTodo } from "@/hooks/useTodo";
+import { CheckList, Todo, useEditTodo, useGetID, useTodo } from "@/hooks/useTodo";
+
+import { CalendarDays, Check, ChevronLeft, ListBullet, MapPin, MapPinSolid } from "../../../../public/HeroiconsSVGs";
+import CheckBox from "./checkBox";
 
 export default function EditTodoModal() {
     const modal = useGetModal();
@@ -19,9 +22,14 @@ export default function EditTodoModal() {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
 
+    const [useCheckBox, setUseCheckBox] = useState<boolean>(false);
+    const [checkList, setCheckList] = useState<CheckList[]>([]);
+
     useEffect(() => {
         setTitle(todo ? todo.title : "");
         setContent(todo ? todo.content : "");
+        setUseCheckBox(todo && todo?.checkList.length > 0 ? true : false);
+        setCheckList(todo && todo?.checkList.length > 0 ? todo.checkList : []);
     }, [getID(), todo]);
 
     // Return if it fail to get todo.
@@ -30,16 +38,35 @@ export default function EditTodoModal() {
             <Modal isOpen={modal === "editTodo"}>
                 <Page>
                     <Header>
-                        <div className="m-2">
-                            <text className="text-3xl">Edit Todo</text>
+                        <div className="flex items-center">
+                            <button
+                                className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl"
+                                onClick={() => setModal(null)}
+                            >
+                                <ChevronLeft />
+                            </button>
+                            <div className="m-2">
+                                <text className="text-3xl">Edit Todo</text>
+                            </div>
+                            <div className="ml-auto">
+                                <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl">
+                                    <CalendarDays />
+                                </button>
+                                <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl">
+                                    <MapPin />
+                                </button>
+                            </div>
                         </div>
                     </Header>
                     <Content>
-                        <text className="text-center text-4xl">Failed to get todo.</text>
+                        <text className="mt-auto text-center text-4xl">Failed to get todo.</text>
                     </Content>
                     <Footer>
-                        <button className="m-1 w-32 rounded-2xl bg-sky-600 px-2 py-1 shadow-2xl" onClick={() => setModal(null)}>
-                            <text className="text-xl text-white">Close</text>
+                        <button
+                            className="m-1 ml-auto size-fit rounded-full bg-sky-600 p-2 shadow-2xl"
+                            onClick={() => setModal(null)}
+                        >
+                            <Check />
                         </button>
                     </Footer>
                 </Page>
@@ -55,11 +82,17 @@ export default function EditTodoModal() {
     };
 
     const handleUpdate = () => {
+        const editedDate = new Date();
         const newTodo: Todo = {
             id: todo.id,
             title: title,
             content: content,
-            isChecked: false,
+            checkList: checkList,
+            createdAt: todo.createdAt,
+            lastEditAt: editedDate,
+            isChecked: todo.isChecked,
+            isPinned: todo.isPinned,
+            isArchived: todo.isArchived,
         };
         updateTodo(getID(), newTodo);
         setModal("detailTodo");
@@ -67,12 +100,31 @@ export default function EditTodoModal() {
         setContent("");
     };
 
+    const handlePin = () => {
+        if (!todo) return;
+        const pinnedTodo: Todo = { ...todo, isPinned: !todo.isPinned };
+        updateTodo(getID(), pinnedTodo);
+    };
+
     return (
         <Modal isOpen={modal === "editTodo"}>
             <Page>
                 <Header>
-                    <div className="m-2">
-                        <text className="text-3xl">Create New Todo</text>
+                    <div className="flex items-center">
+                        <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl" onClick={() => setModal(null)}>
+                            <ChevronLeft />
+                        </button>
+                        <div className="m-2">
+                            <text className="text-3xl">Edit Todo</text>
+                        </div>
+                        <div className="ml-auto">
+                            <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl">
+                                <CalendarDays />
+                            </button>
+                            <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl" onClick={() => handlePin()}>
+                                {todo.isPinned ? <MapPinSolid /> : <MapPin />}
+                            </button>
+                        </div>
                     </div>
                 </Header>
                 <Content>
@@ -102,18 +154,24 @@ export default function EditTodoModal() {
                             />
                             <text className="text-right text-xs">Within 40 letters</text>
                         </div>
+                        <div className="flex w-full flex-col">
+                            {useCheckBox && <CheckBox checkList={checkList} setCheckList={setCheckList} />}
+                        </div>
                     </main>
                 </Content>
                 <Footer>
-                    <div className="flex flex-row">
+                    <div className="flex w-full flex-row">
                         <button
-                            className="m-1 w-32 rounded-2xl bg-sky-600 px-2 py-1 shadow-2xl"
-                            onClick={() => setModal("detailTodo")}
+                            className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl"
+                            onClick={() => setUseCheckBox(!useCheckBox)}
                         >
-                            <text className="text-xl text-white">Cancel</text>
+                            <ListBullet />
                         </button>
-                        <button className="m-1 w-32 rounded-2xl bg-sky-600 px-2 py-1 shadow-2xl" onClick={() => handleUpdate()}>
-                            <text className="text-xl text-white">Confirm</text>
+                        <button
+                            className="m-1 ml-auto size-fit rounded-full bg-sky-600 p-2 shadow-2xl"
+                            onClick={() => handleUpdate()}
+                        >
+                            <Check />
                         </button>
                     </div>
                 </Footer>
