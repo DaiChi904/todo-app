@@ -28,8 +28,8 @@ export default function EditTodoModal() {
     useEffect(() => {
         setTitle(todo ? todo.title : "");
         setContent(todo ? todo.content : "");
-        setUseCheckBox(todo && todo?.checkList.length > 0 ? true : false);
-        setCheckList(todo && todo?.checkList.length > 0 ? todo.checkList : []);
+        setUseCheckBox(todo && todo.checkList?.length > 0 ? true : false);
+        setCheckList(todo && todo.checkList?.length > 0 ? todo.checkList : []);
     }, [getID(), todo]);
 
     // Return if it fail to get todo.
