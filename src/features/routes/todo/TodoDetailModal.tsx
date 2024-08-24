@@ -4,7 +4,7 @@ import Footer from "@/components/layouts/Footer";
 import Header from "@/components/layouts/Header";
 import Page from "@/components/layouts/Page";
 import { useGetModal, useSetModal } from "@/hooks/useModals";
-import { Todo, useDeleteTodo, useEditTodo, useGetID, useSetID, useTodo } from "@/hooks/useTodo";
+import { CheckList, Todo, useDeleteTodo, useEditTodo, useGetID, useSetID, useTodo } from "@/hooks/useTodo";
 import getDateString from "@/utils/getDateString";
 
 import {
@@ -57,6 +57,18 @@ export default function TodoDetailModal() {
         if (!todo) return;
         const checkedTodo: Todo = { ...todo, isChecked: !todo.isChecked };
         updateTodo(getID(), checkedTodo);
+    };
+
+    const handleCheckCheckList = (todo: Todo, list: CheckList) => {
+        const targetIndex = todo.checkList.findIndex((element) => element.id === list.id);
+        const pendingCheckList = todo.checkList.filter((element) => element.id !== list.id);
+        const newCheckList = pendingCheckList.toSpliced(targetIndex, 0, {
+            id: list.id,
+            content: list.content,
+            isChecked: !list.isChecked,
+        });
+        const updatedTodo = { ...todo, checkList: newCheckList };
+        updateTodo(todo.id, updatedTodo);
     };
 
     // Return if it fail to get todo.
@@ -134,7 +146,16 @@ export default function TodoDetailModal() {
                     <text>{todo?.content}</text>
 
                     <div className="border-t">
-                        {todo.checkList?.map((element) => <div key={element.id}>{element.content}</div>)}
+                        {todo.checkList?.map((element) => (
+                            <div key={element.id} className="my-1 flex flex-row items-center">
+                                <div onClick={() => handleCheckCheckList(todo, element)}>
+                                    {element.isChecked ? <CheckBadgeSolid /> : <CheckBadge />}
+                                </div>
+                                <div className="ml-1">
+                                    <text className="break-all">{element.content}</text>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </Content>
                 <Footer>
