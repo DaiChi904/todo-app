@@ -11,7 +11,7 @@ import SettingModal from "@/features/common/SettingModal";
 import ArchivedTodoList from "@/features/routes/todo/ArchivedTodoList";
 import EditTodoModal from "@/features/routes/todo/EditTodoModal";
 import NewTodoModal from "@/features/routes/todo/NewTodoModal";
-import TodoDetailModal from "@/features/routes/todo/TodoDetailModal";
+import TodoDetailModal from "@/features/routes/todo/todoDetailModal";
 import TodoList from "@/features/routes/todo/TodoList";
 import { useControlMenu } from "@/hooks/useMenu";
 import { useSetModal } from "@/hooks/useModals";
