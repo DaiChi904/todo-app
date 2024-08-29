@@ -3,14 +3,14 @@ import { ChangeEvent, Dispatch, useState } from "react";
 
 import { CheckList } from "@/hooks/useTodo";
 
-import { Bars_3, CheckBadge, CheckBadgeSolid, Trash } from "../../../../../public/HeroiconsSVGs";
+import { CheckBadge, CheckBadgeSolid, Trash } from "../../../../../public/HeroiconsSVGs";
 
 interface Props {
     checkList: CheckList[];
     setCheckList: Dispatch<SetStateAction<CheckList[]>>;
 }
 
-export default function CheckBox({ checkList, setCheckList }: Props) {
+export default function NomalView({ checkList, setCheckList }: Props) {
     const [isConfirmed, setIsConfirmed] = useState<boolean>(true);
     const [content, setContent] = useState("");
     const handleTitleInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -31,13 +31,9 @@ export default function CheckBox({ checkList, setCheckList }: Props) {
 
     return (
         <>
-            <text>Check List</text>
             <div className="flex w-full flex-col">
                 {checkList?.map((element) => (
                     <div key={element.id} className="my-1 flex flex-row items-center">
-                        <div className="m-1">
-                            <Bars_3 />
-                        </div>
                         <div>{element.isChecked ? <CheckBadgeSolid /> : <CheckBadge />}</div>
                         <div className="ml-1">
                             <text className="break-all">{element.content}</text>
@@ -47,10 +43,16 @@ export default function CheckBox({ checkList, setCheckList }: Props) {
                         </div>
                     </div>
                 ))}
+
                 {isConfirmed ? (
-                    <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl" onClick={() => setIsConfirmed(false)}>
-                        Add List
-                    </button>
+                    <div className="flex flex-row">
+                        <button
+                            className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl"
+                            onClick={() => setIsConfirmed(false)}
+                        >
+                            Add List
+                        </button>
+                    </div>
                 ) : (
                     <>
                         <input
