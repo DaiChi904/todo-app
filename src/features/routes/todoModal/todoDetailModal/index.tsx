@@ -6,7 +6,7 @@ import Page from "@/components/layouts/Page";
 import { useGetModal } from "@/hooks/useModals";
 import { useGetID, useTodo } from "@/hooks/useTodo";
 
-import ErrorModalContent from "./ErrorModalContent";
+import ErrorModalContent from "../ErrorModalContent";
 import FooterContent from "./FooterContent";
 import HeaderContent from "./HeaderContent";
 import MainContent from "./MainContent";

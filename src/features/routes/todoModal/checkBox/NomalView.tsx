@@ -11,7 +11,6 @@ interface Props {
 }
 
 export default function NomalView({ checkList, setCheckList }: Props) {
-
     const [isConfirmed, setIsConfirmed] = useState<boolean>(true);
     const [content, setContent] = useState("");
     const handleTitleInput = (e: ChangeEvent<HTMLInputElement>) => {

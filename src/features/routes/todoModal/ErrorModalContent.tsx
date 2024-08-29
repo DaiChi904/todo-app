@@ -5,7 +5,7 @@ import Page from "@/components/layouts/Page";
 import { useSetModal } from "@/hooks/useModals";
 import { useSetID } from "@/hooks/useTodo";
 
-import { ArchiveBoxArrowDown, CheckBadge, ChevronLeft, MapPin, PencilSquare, Trash } from "../../../../../public/HeroiconsSVGs";
+import { ArchiveBoxArrowDown, CheckBadge, ChevronLeft, MapPin, PencilSquare, Trash } from "../../../../public/HeroiconsSVGs";
 
 export default function ErrorModalContent() {
     const setModal = useSetModal();
