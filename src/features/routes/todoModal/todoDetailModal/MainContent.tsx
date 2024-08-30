@@ -1,7 +1,7 @@
 import { CheckList, Todo, useEditTodo } from "@/hooks/useTodo";
+import getDateString from "@/utils/getDateString";
 
 import { CheckBadge, CheckBadgeSolid } from "../../../../../public/HeroiconsSVGs";
-import getDateString from "@/utils/getDateString";
 
 export default function MainContent({ todo }: { todo: Todo }) {
     const updateTodo = useEditTodo();
