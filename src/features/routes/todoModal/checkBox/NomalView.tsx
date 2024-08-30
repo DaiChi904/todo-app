@@ -1,6 +1,7 @@
 import { SetStateAction } from "jotai";
 import { ChangeEvent, Dispatch, useState } from "react";
 
+import Button from "@/components/elements/Button";
 import { CheckList } from "@/hooks/useTodo";
 
 import { CheckBadge, CheckBadgeSolid, Trash } from "../../../../../public/HeroiconsSVGs";
@@ -38,20 +39,15 @@ export default function NomalView({ checkList, setCheckList }: Props) {
                         <div className="ml-1">
                             <text className="break-all">{element.content}</text>
                         </div>
-                        <div className="m-1" onClick={() => handleDelete(element)}>
+                        <Button customStyle="m-1" onClick={() => handleDelete(element)}>
                             <Trash />
-                        </div>
+                        </Button>
                     </div>
                 ))}
 
                 {isConfirmed ? (
                     <div className="flex flex-row">
-                        <button
-                            className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl"
-                            onClick={() => setIsConfirmed(false)}
-                        >
-                            Add List
-                        </button>
+                        <Button onClick={() => setIsConfirmed(false)}>Add List</Button>
                     </div>
                 ) : (
                     <>
@@ -63,18 +59,8 @@ export default function NomalView({ checkList, setCheckList }: Props) {
                             maxLength={80}
                         />
                         <div className="flex flex-row">
-                            <button
-                                className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl"
-                                onClick={() => handleConfirm()}
-                            >
-                                Confirm
-                            </button>
-                            <button
-                                className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl"
-                                onClick={() => setIsConfirmed(true)}
-                            >
-                                Cancel
-                            </button>
+                            <Button onClick={() => handleConfirm()}>Confirm</Button>
+                            <Button onClick={() => setIsConfirmed(true)}>Cancel</Button>
                         </div>
                     </>
                 )}

@@ -1,5 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 
+import Button from "@/components/elements/Button";
+
 import CalendarDays from "./CalendarDays";
 import CalendarHeader from "./CalendarHeader";
 
@@ -38,9 +40,13 @@ export default function Calendar({ value, setValue }: Props) {
             <text>
                 {selectedDate.year}. {selectedDate.month + 1}
             </text>
-            <div className="flex">
-                <button onClick={() => setNextMonth()}>Next month</button>
-                <button onClick={() => setPreviousMonth()}>Previous month</button>
+            <div className="flex w-full flex-row justify-center">
+                <Button customWidth={48} onClick={() => setNextMonth()}>
+                    Next month
+                </Button>
+                <Button customWidth={48} onClick={() => setPreviousMonth()}>
+                    Previous month
+                </Button>
             </div>
             <div className="grid grid-flow-row grid-cols-7 grid-rows-7">
                 <CalendarHeader />

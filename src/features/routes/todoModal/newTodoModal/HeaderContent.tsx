@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useState } from "react";
 
+import Button from "@/components/elements/Button";
 import { useSetModal } from "@/hooks/useModals";
 
 import { CalendarDays, ChevronLeft, MapPin, MapPinSolid } from "../../../../../public/HeroiconsSVGs";
@@ -21,43 +22,27 @@ export default function HeaderContent({ isPinned, setIsPinned, begin, setBegin, 
     return (
         <>
             <div className="flex items-center">
-                <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl" onClick={() => setModal(null)}>
+                <Button fullRounded onClick={() => setModal(null)}>
                     <ChevronLeft />
-                </button>
+                </Button>
                 <div className="m-2">
                     <text className="text-3xl">Create New Todo</text>
                 </div>
                 <div className="ml-auto">
-                    <button
-                        className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl"
-                        onClick={() => setUseCalendar(!useCalendar)}
-                    >
+                    <Button fullRounded onClick={() => setUseCalendar(!useCalendar)}>
                         <CalendarDays />
-                    </button>
-                    <button
-                        className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl"
-                        onClick={() => setIsPinned(!isPinned)}
-                    >
+                    </Button>
+                    <Button fullRounded onClick={() => setIsPinned(!isPinned)}>
                         {isPinned ? <MapPinSolid /> : <MapPin />}
-                    </button>
+                    </Button>
                 </div>
             </div>
 
             {useCalendar && (
                 <div className="absolute z-30 flex flex-col bg-white">
                     <div className="flex">
-                        <button
-                            className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl"
-                            onClick={() => setUseCalendar(!useCalendar)}
-                        >
-                            Close
-                        </button>
-                        <button
-                            className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl"
-                            onClick={() => setIsBegin(!isBegin)}
-                        >
-                            {isBegin ? <>Begin</> : <>End</>}
-                        </button>
+                        <Button onClick={() => setUseCalendar(!useCalendar)}>Close</Button>
+                        <Button onClick={() => setIsBegin(!isBegin)}>{isBegin ? <>Begin</> : <>End</>}</Button>
                     </div>
                     {isBegin ? (
                         <div className="relative">
