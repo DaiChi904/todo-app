@@ -61,7 +61,7 @@ export default function MainMenu() {
                     </Lists>
                     <Lists>
                         <List>
-                            <Link href={"https://daichi904.github.io/my-home-page/"}>
+                            <Link href={"https://daichi904.github.io/daichi904.com/"}>
                                 <div className="flex items-center">
                                     <User />
                                     <text className="ml-2">Visit Creater&apos;s Home Page</text>
