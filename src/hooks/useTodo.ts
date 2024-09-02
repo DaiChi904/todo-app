@@ -14,8 +14,8 @@ export type Todo = {
     checkList: CheckList[];
 
     // The types related to date need to be reconsidered.
-    begin?: Date;
-    end?: Date;
+    begin: Date | undefined;
+    end: Date | undefined;
     createdAt: Date;
     lastEditAt: Date | null;
 

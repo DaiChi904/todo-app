@@ -1,4 +1,5 @@
 import { CheckList, Todo, useEditTodo } from "@/hooks/useTodo";
+import getDateString from "@/utils/getDateString";
 
 import { CheckBadge, CheckBadgeSolid } from "../../../../../public/HeroiconsSVGs";
 
@@ -32,6 +33,11 @@ export default function MainContent({ todo }: { todo: Todo }) {
                         </div>
                     </div>
                 ))}
+            </div>
+
+            <div className="flex flex-col border-t">
+                {todo.begin && <text>Begin: {getDateString(todo.begin)}</text>}
+                {todo.end && <text>Deadline: {getDateString(todo.end)}</text>}
             </div>
         </>
     );

@@ -1,3 +1,4 @@
+import Button from "@/components/elements/Button";
 import { useSetModal } from "@/hooks/useModals";
 import { Todo, useEditTodo, useGetID } from "@/hooks/useTodo";
 
@@ -22,19 +23,19 @@ export default function HeaderContent({ todo }: { todo: Todo }) {
     };
     return (
         <div className="flex items-center">
-            <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl" onClick={() => setModal(null)}>
+            <Button fullRounded onClick={() => setModal(null)}>
                 <ChevronLeft />
-            </button>
+            </Button>
             <div className="m-2">
                 <text className="text-3xl">Todo Detail</text>
             </div>
             <div className="ml-auto">
-                <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl" onClick={() => handleArchive()}>
+                <Button fullRounded onClick={() => handleArchive()}>
                     {todo.isArchived ? <ArrowUpTray /> : <ArchiveBoxArrowDown />}
-                </button>
-                <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl" onClick={() => handlePin()}>
+                </Button>
+                <Button fullRounded onClick={() => handlePin()}>
                     {todo.isPinned ? <MapPinSolid /> : <MapPin />}
-                </button>
+                </Button>
             </div>
         </div>
     );

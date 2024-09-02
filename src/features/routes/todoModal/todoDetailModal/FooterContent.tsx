@@ -1,3 +1,4 @@
+import Button from "@/components/elements/Button";
 import { useSetModal } from "@/hooks/useModals";
 import { Todo, useDeleteTodo, useEditTodo, useGetID } from "@/hooks/useTodo";
 import getDateString from "@/utils/getDateString";
@@ -22,25 +23,25 @@ export default function FooterContent({ todo }: { todo: Todo }) {
     };
     return (
         <div className="flex flex-row justify-between">
-            <div id="left" className="flex">
-                <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl" onClick={() => handleCheck()}>
+            <div className="flex">
+                <Button fullRounded onClick={() => handleCheck()}>
                     {todo.isChecked ? <CheckBadgeSolid /> : <CheckBadge />}
-                </button>
+                </Button>
             </div>
-            <div id="middle" className="flex items-center">
+            <div className="flex items-center">
                 <text>
                     {todo.createdAt && !todo.lastEditAt
                         ? `Created at ${getDateString(todo.createdAt)}`
                         : `Edited at ${getDateString(todo.lastEditAt)}`}
                 </text>
             </div>
-            <div id="right" className="flex">
-                <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl" onClick={() => setModal("editTodo")}>
+            <div className="flex">
+                <Button fullRounded onClick={() => setModal("editTodo")}>
                     <PencilSquare />
-                </button>
-                <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl" onClick={() => handleDelete()}>
+                </Button>
+                <Button fullRounded onClick={() => handleDelete()}>
                     <Trash />
-                </button>
+                </Button>
             </div>
         </div>
     );

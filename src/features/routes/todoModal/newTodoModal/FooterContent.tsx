@@ -1,5 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 
+import Button from "@/components/elements/Button";
+
 import { Check, ListBullet } from "../../../../../public/HeroiconsSVGs";
 
 interface Props {
@@ -10,13 +12,13 @@ interface Props {
 
 export default function FooterContent({ useCheckBox, setUseCheckBox, confirmCreate }: Props) {
     return (
-        <div className="flex w-full flex-row">
-            <button className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl" onClick={() => setUseCheckBox(!useCheckBox)}>
+        <div className="flex w-full flex-row justify-between">
+            <Button fullRounded onClick={() => setUseCheckBox(!useCheckBox)}>
                 <ListBullet />
-            </button>
-            <button className="m-1 ml-auto size-fit rounded-full bg-sky-600 p-2 shadow-2xl" onClick={() => confirmCreate()}>
+            </Button>
+            <Button fullRounded onClick={() => confirmCreate()}>
                 <Check />
-            </button>
+            </Button>
         </div>
     );
 }
