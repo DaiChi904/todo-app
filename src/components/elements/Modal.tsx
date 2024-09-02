@@ -1,25 +1,9 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-
 interface Props {
     children: React.ReactNode;
     isOpen: boolean;
 }
 
 export default function Modal({ children, isOpen }: Props) {
-    const bodyRef = useRef(document.body.style.overflow);
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            if (isOpen) {
-                bodyRef.current = document.body.style.overflow;
-                document.body.style.overflow = "hidden";
-            } else {
-                document.body.style.overflow = "visible";
-            }
-        }
-    }, [isOpen]);
-
     return (
         <div
             className={
