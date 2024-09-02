@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef } from "react";
 
 interface Props {
@@ -8,11 +10,13 @@ interface Props {
 export default function Modal({ children, isOpen }: Props) {
     const bodyRef = useRef(document.body.style.overflow);
     useEffect(() => {
-        if (isOpen) {
-            bodyRef.current = document.body.style.overflow;
-            document.body.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "visible";
+        if (typeof window !== "undefined") {
+            if (isOpen) {
+                bodyRef.current = document.body.style.overflow;
+                document.body.style.overflow = "hidden";
+            } else {
+                document.body.style.overflow = "visible";
+            }
         }
     }, [isOpen]);
 
