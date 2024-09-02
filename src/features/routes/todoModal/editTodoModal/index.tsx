@@ -7,6 +7,7 @@ import Header from "@/components/layouts/Header";
 import Page from "@/components/layouts/Page";
 import { useGetModal, useSetModal } from "@/hooks/useModals";
 import { CheckList, Todo, useEditTodo, useGetID, useTodo } from "@/hooks/useTodo";
+import getDateString from "@/utils/getDateString";
 
 import CheckBox from "../checkBox";
 import ErrorModalContent from "../ErrorModalContent";
@@ -27,6 +28,8 @@ export default function EditTodoModal() {
     const [content, setContent] = useState("");
     const [useCheckBox, setUseCheckBox] = useState<boolean>(false);
     const [checkList, setCheckList] = useState<CheckList[]>([]);
+    const [begin, setBegin] = useState<Date | undefined>(undefined);
+    const [end, setEnd] = useState<Date | undefined>(undefined);
 
     useMemo(() => {
         setTitle(todo ? todo.title : "");
@@ -51,6 +54,8 @@ export default function EditTodoModal() {
             title: title,
             content: content,
             checkList: checkList,
+            begin: begin,
+            end: end,
             createdAt: todo.createdAt,
             lastEditAt: editedDate,
             isChecked: todo.isChecked,
@@ -67,14 +72,18 @@ export default function EditTodoModal() {
         <Modal isOpen={modal === "editTodo"}>
             <Page>
                 <Header>
-                    <HeaderContent todo={todo} />
+                    <HeaderContent todo={todo} begin={begin} setBegin={setBegin} end={end} setEnd={setEnd} />
                 </Header>
                 <Content>
                     <main className="relative flex flex-col p-3">
                         <TextInput label="Title" subText="Within 40 letters" maxLength={40} value={title} setValue={setTitle} />
                         <TextAreaInput label="content" subText="" maxLength={undefined} value={content} setValue={setContent} />
-                        <div className="flex w-full flex-col">
+                        <div className="relative flex w-full flex-col">
                             {useCheckBox && <CheckBox checkList={checkList} setCheckList={setCheckList} />}
+                            <div className="flex flex-col">
+                                <text>{begin && `Begin: ${getDateString(begin)}`}</text>
+                                <text>{end && `Deadline: ${getDateString(end)}`}</text>
+                            </div>
                         </div>
                     </main>
                 </Content>

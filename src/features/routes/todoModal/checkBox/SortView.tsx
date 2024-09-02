@@ -1,6 +1,7 @@
 import { SetStateAction } from "jotai";
 import { Dispatch } from "react";
 
+import Button from "@/components/elements/Button";
 import { CheckList } from "@/hooks/useTodo";
 
 import { Arrows } from "../../../../../public/HeroiconsSVGs";
@@ -34,12 +35,12 @@ export default function SortView({ checkList, setCheckList }: Props) {
                 {checkList?.map((element) => (
                     <div key={element.id} className="my-1 flex flex-row items-center">
                         <div className="flex flex-row">
-                            <div onClick={() => insertToFoward(element.id)}>
+                            <Button onClick={() => insertToFoward(element.id)} fullRounded>
                                 <Arrows direction={"up"} />
-                            </div>
-                            <div onClick={() => insertToBackward(element.id)}>
+                            </Button>
+                            <Button onClick={() => insertToBackward(element.id)} fullRounded>
                                 <Arrows direction={"down"} />
-                            </div>
+                            </Button>
                         </div>
                         <div className="ml-1">
                             <text className="break-all">{element.content}</text>

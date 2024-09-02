@@ -1,6 +1,7 @@
 import { SetStateAction } from "jotai";
 import { Dispatch, useState } from "react";
 
+import Button from "@/components/elements/Button";
 import { CheckList } from "@/hooks/useTodo";
 
 import NomalView from "./NomalView";
@@ -20,22 +21,12 @@ export default function CheckBox({ checkList, setCheckList }: Props) {
             {!isSorting ? (
                 <>
                     <NomalView checkList={checkList} setCheckList={setCheckList} />
-                    <button
-                        className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl"
-                        onClick={() => setIsSorting(!isSorting)}
-                    >
-                        Start Sorting
-                    </button>
+                    <Button onClick={() => setIsSorting(!isSorting)}>Start Sorting</Button>
                 </>
             ) : (
                 <>
                     <SortView checkList={checkList} setCheckList={setCheckList} />
-                    <button
-                        className="m-1 size-fit rounded-full bg-sky-600 p-2 shadow-2xl"
-                        onClick={() => setIsSorting(!isSorting)}
-                    >
-                        End Sorting
-                    </button>
+                    <Button onClick={() => setIsSorting(!isSorting)}>End Sorting</Button>
                 </>
             )}
         </>

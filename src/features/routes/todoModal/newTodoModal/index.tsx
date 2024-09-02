@@ -7,6 +7,7 @@ import Header from "@/components/layouts/Header";
 import Page from "@/components/layouts/Page";
 import { useGetModal, useSetModal } from "@/hooks/useModals";
 import { CheckList, Todo, useSetNewTodo } from "@/hooks/useTodo";
+import getDateString from "@/utils/getDateString";
 
 import CheckBox from "../checkBox";
 import TextAreaInput from "../TextAreaInput";
@@ -23,6 +24,8 @@ export default function NewTodoModal() {
     const [content, setContent] = useState("");
     const [useCheckBox, setUseCheckBox] = useState<boolean>(false);
     const [checkList, setCheckList] = useState<CheckList[]>([]);
+    const [begin, setBegin] = useState<Date | undefined>(undefined);
+    const [end, setEnd] = useState<Date | undefined>(undefined);
     const [isPinned, setIsPinned] = useState<boolean>(false);
 
     const confirmCreate = () => {
@@ -33,6 +36,8 @@ export default function NewTodoModal() {
             title: title,
             content: content,
             checkList: checkList,
+            begin: begin,
+            end: end,
             createdAt: createdDate,
             lastEditAt: null,
             isChecked: false,
@@ -49,7 +54,14 @@ export default function NewTodoModal() {
         <Modal isOpen={modal === "newTodo"}>
             <Page>
                 <Header>
-                    <HeaderContent isPinned={isPinned} setIsPinned={setIsPinned} />
+                    <HeaderContent
+                        isPinned={isPinned}
+                        setIsPinned={setIsPinned}
+                        begin={begin}
+                        setBegin={setBegin}
+                        end={end}
+                        setEnd={setEnd}
+                    />
                 </Header>
                 <Content>
                     <main className="relative flex grow flex-col overflow-y-auto p-3">
@@ -57,6 +69,10 @@ export default function NewTodoModal() {
                         <TextAreaInput label="content" subText="" maxLength={undefined} value={content} setValue={setContent} />
                         <div className="relative flex w-full flex-col">
                             {useCheckBox && <CheckBox checkList={checkList} setCheckList={setCheckList} />}
+                            <div className="flex flex-col">
+                                <text>{begin && `Begin: ${getDateString(begin)}`}</text>
+                                <text>{end && `Deadline: ${getDateString(end)}`}</text>
+                            </div>
                         </div>
                     </main>
                 </Content>
